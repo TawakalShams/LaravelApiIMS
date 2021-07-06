@@ -16,10 +16,25 @@ class Insuarance extends Migration
         Schema::create('insuarance', function (Blueprint $table) {
             //  $table->bigIncrements('insuaranceid');
             $table->integer('insuaranceid', 10);
-            // $table->integer('customerid')->unique();
-            //  $table->foreign('customerid')->references('customerid')->on('customers')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('platenumber')->unique();
-            $table->foreign('platenumber')->references('platenumber')->on('vehicles')->onDelete('cascade')->onUpdate('cascade');
+             $table->string('platenumber')->unique();
+
+            // customer
+            $table->string('fullName');
+            $table->string('gender');
+            $table->date('dob');
+            $table->string('address');
+            $table->string('phone');
+
+            // vehicles
+            $table->string('type');
+            $table->string('model');
+            $table->string('chassiNumber');
+            $table->string('seat');
+            $table->string('color');
+            $table->string('yearOfManufacture');
+            $table->string('value');
+            // insurance
+            // $table->foreign('platenumber')->references('platenumber')->on('vehicles')->onDelete('cascade')->onUpdate('cascade');
             $table->string('typeOfInsuarance');
             $table->date('startdate');
             $table->date('enddate');

@@ -18,14 +18,13 @@ class CustomerPayment extends Controller
     {
         $total = CustomerPaymentModel::sum('amount');
 
-        return response()->json([
-            'total_balance' => $total,
-            'payment' =>
-            DB::table('payment')
-                ->select('*')
-                ->join('customers', 'customers.customerid', '=', 'payment.customerid')
-                ->get()
-        ], 200);
+        $insuarance = CustomerPaymentModel::with(['insuarance'])->get();
+        return response()->json(
+            [
+                'total_balance' => $total,
+                'insuarance' =>  $insuarance
+            ]
+        );
     }
 
     /**
@@ -47,11 +46,11 @@ class CustomerPayment extends Controller
     {
 
 
-        $customer = CustomerPaymentModel::where('customerid', $request['customerid'])->first();
+        $customer = CustomerPaymentModel::where('insuaranceid', $request['insuaranceid'])->first();
 
         $payments = new CustomerPaymentModel();
 
-        $payments->customerid = $request->input('customerid');
+        $payments->insuaranceid = $request->input('insuaranceid');
         $payments->amount = $request->input('amount');
         $payments->status = "PAID";
         $payments->create_by = $request->input('create_by');
@@ -134,30 +133,6 @@ class CustomerPayment extends Controller
         return response()->json([
             'payment' => $payments,
         ], 200);
-        // $validation = Validator::make($request->all(), [
-        //     'customerid'  => 'required',
-        //     'amount'      => 'required',
-        // ]);
-
-        // if ($validation->fails()) {
-        //     return response()->json([
-        //         'error' => true,
-        //         'messages'  => $validation->errors(),
-        //     ], 200);
-        // } else {
-
-        //     //$agents = Customer::find($agentid);
-        //     $payments = CustomerPaymentModel::find($paymentId);
-
-        //     $payments->customerid = $request->input('customerid');
-        //     $payments->amount = $request->input('amount');
-        //     $payments->created_by = $request->input('create_by');
-        //     $payments->save();
-
-        //     return response()->json([
-        //         'payments' => $payments,
-        //     ], 200);
-        // }
     }
 
     /**
@@ -166,13 +141,13 @@ class CustomerPayment extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($paymentId)
+    public function destroy($paymentid)
     {
-        $payments = CustomerPaymentModel::findOrFail($paymentId);
-        $payments->delete();
-        if ($payments) {
+        $payment = CustomerPaymentModel::findOrFail($paymentid);
+        $payment->delete();
+        if ($payment) {
             return response()->json([
-                'message' => 'Payemnt Deleted!'
+                'message' => 'Payment Deleted!'
             ], 200);
         } else {
             return response()->json(null, 204);

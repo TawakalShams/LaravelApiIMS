@@ -15,9 +15,9 @@ class Payment extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             // $table->bigIncrements('paymentId');
-            $table->integer('paymentId', 10);
-            $table->integer('customerid')->unique();
-            $table->foreign('customerid')->references('customerid')->on('customers')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('paymentid', 10);
+            $table->integer('insuaranceid')->unique();
+            $table->foreign('insuaranceid')->references('insuaranceid')->on('insuarance')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('amount');
             $table->string('status');
             $table->string('create_by');

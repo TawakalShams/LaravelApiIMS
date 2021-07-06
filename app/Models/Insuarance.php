@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CustomerPaymentModel;
 
 class Insuarance extends Model
 {
@@ -12,11 +13,31 @@ class Insuarance extends Model
     public $timestamps = false;
     protected $primaryKey = 'insuaranceid';
     protected $fillable = [
-        'insuaredid',
-        'platenumbe',
+        // customer
+        'fullName',
+        'gender',
+        'dob',
+        'address',
+        'phone',
+
+        // vehicles
+        'platenumber',
         'type',
+        'model',
+        'chassiNumber',
+        'seat',
+        'color',
+        'yearOfManufacture',
+        'value',
+
+        'typeOfInsuarance',
         'startdate',
         'enddate',
         'created_by',
     ];
+
+    public function payment()
+    {
+        return $this->hasOne(CustomerPaymentModel::class, 'insuaranceid');
+    }
 }

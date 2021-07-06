@@ -14,8 +14,8 @@ class VehiclesPayed extends Controller
             'vehicles' =>
             DB::table('vehicles')
                 ->select('*')
-                ->join('customers', 'customers.platenumber', '=', 'vehicles.platenumber')
-                ->join('payment', 'payment.customerid', '=', 'customers.customerid')
+                // ->join('customers', 'customers.platenumber', '=', 'vehicles.platenumber')
+                // ->join('payment', 'payment.customerid', '=', 'customers.customerid')
                 ->get()
         ], 200);
     }

@@ -12,17 +12,24 @@ class PayInsuared extends Controller
     {
         $total = PayInsuaredModel::sum('amount');
 
+        $accident = PayInsuaredModel::with(['insuarance'])->get();
         return response()->json([
             'total_balance' => $total,
-            // 'insuaredPay' => PayInsuaredModel::all(),
-            'insuaredPay' =>
-            DB::table('payinsuared')
-                ->select('*')
-                ->join('insuarance', 'insuarance.insuaranceid', '=', 'payinsuared.insuaranceid')
-                ->join('vehicles', 'vehicles.vehicleid', '=', 'insuarance.vehicleid')
-                ->join('customers', 'customers.platenumber', '=', 'vehicles.platenumber')
-                ->get()
-        ], 200);
+            'accident' =>  $accident,
+
+        ]);
+
+        // return response()->json([
+        //     'total_balance' => $total,
+        //     // 'insuaredPay' => PayInsuaredModel::all(),
+        //     'insuaredPay' =>
+        //     DB::table('payinsuared')
+        //         ->select('*')
+        //         // ->join('insuarance', 'insuarance.insuaranceid', '=', 'payinsuared.insuaranceid')
+        //         // ->join('vehicles', 'vehicles.platenumber', '=', 'insuarance.platenumber')
+        //         // ->join('customers', 'customers.platenumber', '=', 'vehicles.platenumber')
+        //         ->get()
+        // ], 200);
     }
 
     public function store(Request $request)

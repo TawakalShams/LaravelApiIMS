@@ -131,7 +131,7 @@ class Agent extends Controller
             'fullName'   => 'required',
             'email'      => 'required',
             'role'       => 'required',
-            'password'   => 'required',
+            // 'password'   => 'required',
             'gender'     => 'required',
             'dob'        => 'required',
             'address'    => 'required',
@@ -154,7 +154,7 @@ class Agent extends Controller
             $agents->email = $request->input('email');
             $agents->role = $request->input('role');
             $agents->address = $request->input('address');
-            $agents->password = $request->input('password');
+            // $agents->password = $request->input('password');
             $agents->gender = $request->input('gender');
             $agents->dob = $request->input('dob');
             $agents->branch = $request->input('branch');

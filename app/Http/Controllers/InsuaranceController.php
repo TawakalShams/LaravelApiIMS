@@ -17,21 +17,16 @@ class InsuaranceController extends Controller
      */
     public function index()
     {
+
+        $insuarance = Insuarance::with(['payment'])->get();
+        return response()->json($insuarance);
         // return response()->json([
-        //     'agents' => Insuarance::all(),
+        //     'insuarance' =>
+        //     DB::table('insuarance')
+        //         ->select('*')
+        //         // ->join('vehicles', 'vehicles.platenumber', '=', 'insuarance.platenumber')
+        //         ->get()
         // ], 200);
-
-
-        return response()->json([
-
-            // 'number' => rand(10000000, 99999999),
-            'insuarance' =>
-            DB::table('insuarance')
-                ->select('*')
-                // ->join('customers', 'customers.customerid', '=', 'insuarance.customerid')
-                ->join('vehicles', 'vehicles.vehicleid', '=', 'insuarance.vehicleid')
-                ->get()
-        ], 200);
     }
 
     /**
@@ -51,21 +46,32 @@ class InsuaranceController extends Controller
      */
     public function store(Request $request)
     {
-        $agents = Insuarance::where('vehicleid', $request['vehicleid'])->first();
+        $agents = Insuarance::where('platenumber', $request['platenumber'])->first();
 
         if ($agents) {
             return response()->json([
                 'error' => true,
-                'message' => ('id already exists')
+                'message' => ('Platenumber already exists')
             ], 409);
         } else {
             $validation = Validator::make($request->all(), [
+                // customer
+                'fullName' => 'required',
+                'gender' => 'required',
+                'dob' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
+                // vehicles
+                'platenumber'  => 'required',
+                'type' => 'required',
+                'model' => 'required',
+                'chassiNumber' => 'required',
+                'seat' => 'required',
+                'color' => 'required',
+                'yearOfManufacture' => 'required',
+                'value' => 'required',
 
-                'vehicleid'  => 'required',
-                'color'   => 'required',
-                'seat'   => 'required',
-                'value'   => 'required',
-                'manufacture'   => 'required',
+                'typeOfInsuarance' => 'required',
                 'startdate'   => 'required',
                 'enddate'   => 'required',
                 'create_by' => 'required',
@@ -79,11 +85,23 @@ class InsuaranceController extends Controller
             } else {
 
                 $insuarance = new Insuarance();
-                $insuarance->vehicleid = $request->input('vehicleid');
-                $insuarance->color = $request->input('color');
+
+                $insuarance->fullName = $request->input('fullName');
+                $insuarance->gender = $request->input('gender');
+                $insuarance->dob = $request->input('dob');
+                $insuarance->address = $request->input('address');
+                $insuarance->phone = $request->input('phone');
+
+                $insuarance->platenumber = $request->input('platenumber');
+                $insuarance->type = $request->input('type');
+                $insuarance->model = $request->input('model');
+                $insuarance->chassiNumber = $request->input('chassiNumber');
                 $insuarance->seat = $request->input('seat');
+                $insuarance->color = $request->input('color');
+                $insuarance->yearOfManufacture = $request->input('yearOfManufacture');
                 $insuarance->value = $request->input('value');
-                $insuarance->manufacture = $request->input('manufacture');
+
+                $insuarance->typeOfInsuarance = $request->input('typeOfInsuarance');
                 $insuarance->startdate = $request->input('startdate');
                 $insuarance->enddate = $request->input('enddate');
                 $insuarance->create_by = $request->input('create_by');
@@ -137,11 +155,22 @@ class InsuaranceController extends Controller
 
         $insuarance = Insuarance::find($insuaranceid);
 
-        $insuarance->vehicleid = $request->input('vehicleid');
-        $insuarance->color = $request->input('color');
+        $insuarance->fullName = $request->input('fullName');
+        $insuarance->gender = $request->input('gender');
+        $insuarance->dob = $request->input('dob');
+        $insuarance->address = $request->input('address');
+        $insuarance->phone = $request->input('phone');
+
+        $insuarance->platenumber = $request->input('platenumber');
+        $insuarance->type = $request->input('type');
+        $insuarance->model = $request->input('model');
+        $insuarance->chassiNumber = $request->input('chassiNumber');
         $insuarance->seat = $request->input('seat');
+        $insuarance->color = $request->input('color');
+        $insuarance->yearOfManufacture = $request->input('yearOfManufacture');
         $insuarance->value = $request->input('value');
-        $insuarance->manufacture = $request->input('manufacture');
+
+        $insuarance->typeOfInsuarance = $request->input('typeOfInsuarance');
         $insuarance->startdate = $request->input('startdate');
         $insuarance->enddate = $request->input('enddate');
         $insuarance->create_by = $request->input('create_by');

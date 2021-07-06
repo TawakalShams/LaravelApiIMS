@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Acident extends Migration
+class CreateAcidentVerificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class Acident extends Migration
      */
     public function up()
     {
-        Schema::create('acident', function (Blueprint $table) {
-            //   $table->bigIncrements('acidentid');
-            $table->integer('acidentid', 10);
+        Schema::create('acident_verifications', function (Blueprint $table) {
+            $table->integer('acidentid',10);
             $table->string('platenumber')->unique();
-            $table->foreign('platenumber')->references('platenumber')->on('vehicles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('platenumber')->references('platenumber')->on('insuarance')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('platenumber')->references('platenumber')->on('insuarance')->onDelete('cascade')->onUpdate('cascade');
             $table->string('typeofacident');
             $table->string('policeReportNo');
             $table->string('image1');
@@ -36,6 +36,6 @@ class Acident extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acident');
+        Schema::dropIfExists('acident_verifications');
     }
 }
