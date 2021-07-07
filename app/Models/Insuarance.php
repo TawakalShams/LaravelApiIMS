@@ -38,6 +38,6 @@ class Insuarance extends Model
 
     public function payment()
     {
-        return $this->hasOne(CustomerPaymentModel::class, 'insuaranceid');
+        return $this->hasOne(CustomerPaymentModel::class, 'insuaranceid', 'insuaranceid');
     }
 }

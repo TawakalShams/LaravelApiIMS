@@ -10,9 +10,11 @@ use App\Models\Insuarance;
 class CustomerPaymentModel extends Model
 {
     use HasFactory;
+    // protected $table = ['payment', 'insuaranceid'];
     protected $table = 'payment';
     public $timestamps = false;
-    protected $primaryKey = 'paymentid';
+    protected $primaryKey = 'insuaranceid';
+    // protected $primaryKey = 'paymentid';
     protected $fillable = [
         'paymentid',
         'amount',
