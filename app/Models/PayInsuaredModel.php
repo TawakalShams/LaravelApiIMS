@@ -13,10 +13,11 @@ class PayInsuaredModel extends Model
 
     protected $table = 'payinsuared';
     public $timestamps = false;
-    protected $primaryKey = 'insuaranceid';
+    protected $primaryKey = 'payid';
     protected $fillable = [
         'platenumber',
         'amount',
+        'status',
         'create_by',
     ];
     public function insuarance()

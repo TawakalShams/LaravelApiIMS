@@ -8,6 +8,9 @@ use App\Http\Controllers\InsuaranceController;
 use App\Http\Controllers\CustomerPayment;
 use App\Http\Controllers\PayInsuared;
 use App\Http\Controllers\AcidentVerificationController;
+use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\ViewAllUsers;
+// use App\Http\Controllers\ChangePassword;
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -27,6 +30,7 @@ Route::resource('/insuarance', InsuaranceController::class);
 Route::resource('/payment', CustomerPayment::class);
 Route::resource('/payinsuared', PayInsuared::class);
 Route::resource('/accident', AcidentVerificationController::class);
+Route::resource('/changePassword', ChangePassword::class);
 
-// Route::resource('/vehiclesPayed', VehiclesPayed::class);
+Route::resource('/users', ViewAllUsers::class);
 // Route::resource('/customerReport', insuranceReportOfCustomer::class);

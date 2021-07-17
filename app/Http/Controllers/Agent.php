@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use App\Models\Agentsresgstration; //this is a model
+use App\Models\User; //this is a model
+use Illuminate\Support\Facades\DB;
+
 class Agent extends Controller
 {
     /**
@@ -18,8 +20,15 @@ class Agent extends Controller
     public function index()
     {
         return response()->json([
-            'agents' => Agentsresgstration::all(),
+            'agents' =>
+            DB::table('users')
+                ->select('*')
+                ->where('role', 'Agent')
+                ->get()
         ], 200);
+        // return response()->json([
+        //     'agents' => User::all(),
+        // ], 200);
     }
 
     /**
@@ -39,7 +48,7 @@ class Agent extends Controller
      */
     public function store(Request $request)
     {
-        $agents = Agentsresgstration::where('email', $request['email'])->first();
+        $agents = User::where('email', $request['email'])->first();
 
         if ($agents) {
             return response()->json([
@@ -50,14 +59,14 @@ class Agent extends Controller
             $validation = Validator::make($request->all(), [
                 'fullName'   => 'required',
                 'email'      => 'required',
-                // 'role'       => 'required',
+                'role'       => 'required',
                 'password'   => 'required',
                 'gender'     => 'required',
                 'dob'        => 'required',
                 'address'    => 'required',
                 'branch'     => 'required',
                 'phone'      => 'required',
-                // 'created_by' => 'required',
+                'created_by' => 'required',
 
             ]);
 
@@ -67,9 +76,10 @@ class Agent extends Controller
                     'message' => $validation->errors()
                 ], 200);
             } else {
-                $agents = new Agentsresgstration();
+                $agents = new User();
                 $agents->fullName = $request->input('fullName');
                 $agents->email = $request->input('email');
+                $agents->role = $request->input('role');
                 //  $agents->role = $request->input('role');
                 $agents->role = 'Agent';
                 $agents->address = $request->input('address');
@@ -102,7 +112,7 @@ class Agent extends Controller
     public function show($agentid)
     {
         return response()->json([
-            'agents' => Agentsresgstration::find($agentid),
+            'agents' => User::find($agentid),
         ], 200);
     }
 
@@ -130,7 +140,7 @@ class Agent extends Controller
         $validation = Validator::make($request->all(), [
             'fullName'   => 'required',
             'email'      => 'required',
-            'role'       => 'required',
+            // 'role'       => 'required',
             // 'password'   => 'required',
             'gender'     => 'required',
             'dob'        => 'required',
@@ -148,12 +158,13 @@ class Agent extends Controller
         } else {
 
             //$agents = Customer::find($agentid);
-            $agents = Agentsresgstration::find($agentid);
+            $agents = User::find($agentid);
 
             $agents->fullName = $request->input('fullName');
             $agents->email = $request->input('email');
             $agents->role = $request->input('role');
             $agents->address = $request->input('address');
+            // $agents->role = $request->input('role');
             // $agents->password = $request->input('password');
             $agents->gender = $request->input('gender');
             $agents->dob = $request->input('dob');
@@ -176,7 +187,7 @@ class Agent extends Controller
      */
     public function destroy($agentid)
     {
-        $agents = Agentsresgstration::findOrFail($agentid);
+        $agents = User::findOrFail($agentid);
         $agents->delete();
         if ($agents) {
             return response()->json([

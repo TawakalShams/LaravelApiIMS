@@ -17,15 +17,21 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $table = "admin";
+    protected $table = "users";
+    protected $primaryKey = 'agentid';
     public $timestamps = false;
     protected $fillable = [
+        'agentid',
         'fullName',
         'email',
-        'password',
         'role',
+        'password',
+        'gender',
+        'dob',
         'address',
+        'branch',
         'phone',
+        'created_by',
     ];
 
     /**
@@ -60,6 +66,7 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
+            'agentid' => $this->agentid,
             'email' => $this->email,
             'role' => $this->role,
             'fullName' => $this->fullName,

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -85,31 +84,16 @@ class AuthController extends Controller
         $user = User::Create([
             'fullName' => $request->fullName,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
             'role' => $request->role,
+            'password' => bcrypt($request->password),
+            'gender' => $request->gender,
+            'dob' => $request->dob,
             'address' => $request->address,
+            'branch'  => $request->branch,
             'phone' => $request->phone,
             'created_by' => $request->created_by,
-
-
-
         ]);
 
         return response()->json($user, 201);
-    }
-
-    function company()
-    {
-        return $this->belongsTo('App\Company');
-    }
-
-    function branch()
-    {
-        return $this->belongsTo('App\Branch');
-    }
-
-    function role()
-    {
-        return $this->belongsTo('App\Role');
     }
 }

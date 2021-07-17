@@ -36,26 +36,37 @@ class PayInsuared extends Controller
     {
 
 
-        $customer = PayInsuaredModel::where('insuaranceid', $request['insuaranceid'])->first();
+        $customer = PayInsuaredModel::where('platenumber', $request['platenumber'])->first();
 
         $payments = new PayInsuaredModel();
 
-        $payments->insuaranceid = $request->input('insuaranceid');
-        $amount = $payments->amount = $request->input('amount');
+        $payments->platenumber = $request->input('platenumber');
+        $payments->amount = $request->input('amount');
+        $payments->status = 'PAID';
         $payments->create_by = $request->input('create_by');
 
-        if ($amount == 45000 && !$customer) {
-            $payments->amount = $request->input('amount');
-        } elseif ($customer) {
+        // if ($amount == 45000 && !$customer) {
+        //     $payments->amount = $request->input('amount');
+        // } elseif ($customer) {
+        //     return response()->json([
+        //         'error' => true,
+        //         'message' => '
+        //   Please check customer is already paid'
+        //     ], 200);
+        // } else {
+
+        // if($customer){
+        // return response()->json([
+        //     'error' => true,
+        //     'message' => ' Please check customer is already paid'
+        // ], 200);
+        // }
+        // }
+        if ($customer) {
             return response()->json([
                 'error' => true,
                 'message' => '
           Please check customer is already paid'
-            ], 200);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Amount is not correct either is maximum or minmum'
             ], 200);
         }
 

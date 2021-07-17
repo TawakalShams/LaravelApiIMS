@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Insuarance;
+use App\Models\PayInsuaredModel;
 
 class AcidentVerification extends Model
 {
@@ -20,11 +21,15 @@ class AcidentVerification extends Model
         'image1',
         'image2',
         'image3',
-        'created_by',
+        'create_by',
     ];
 
     public function insuarance()
     {
         return $this->belongsTo(Insuarance::class, 'platenumber', 'platenumber');
+    }
+    public function payinsuared()
+    {
+        return $this->belongsTo(PayInsuaredModel::class, 'platenumber', 'platenumber');
     }
 }
