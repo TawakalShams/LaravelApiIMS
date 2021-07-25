@@ -59,6 +59,7 @@ class InsuaranceController extends Controller
                 'fullName' => 'required',
                 'gender' => 'required',
                 'dob' => 'required',
+                'password' => 'required',
                 'address' => 'required',
                 'phone' => 'required',
                 // vehicles
@@ -90,6 +91,9 @@ class InsuaranceController extends Controller
                 $insuarance->gender = $request->input('gender');
                 $insuarance->dob = $request->input('dob');
                 $insuarance->address = $request->input('address');
+                // $insuarance->password = $request->input('password');
+                $insuarance->password = bcrypt($request->input('password'));
+
                 $insuarance->phone = $request->input('phone');
 
                 $insuarance->platenumber = $request->input('platenumber');

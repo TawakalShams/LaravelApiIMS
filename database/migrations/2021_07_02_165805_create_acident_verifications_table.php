@@ -14,15 +14,15 @@ class CreateAcidentVerificationsTable extends Migration
     public function up()
     {
         Schema::create('acident_verifications', function (Blueprint $table) {
-            $table->integer('acidentid',10);
+            $table->integer('acidentid', 10);
             $table->string('platenumber')->unique();
             $table->foreign('platenumber')->references('platenumber')->on('insuarance')->onDelete('cascade')->onUpdate('cascade');
             // $table->foreign('platenumber')->references('platenumber')->on('insuarance')->onDelete('cascade')->onUpdate('cascade');
             $table->string('typeofacident');
             $table->string('policeReportNo');
-            $table->string('image1');
-            $table->string('image2');
-            $table->string('image3');
+            $table->string('images');
+            // $table->string('image2');
+            // $table->string('image3');
 
             $table->string('create_by');
             $table->timestamp('create_at');

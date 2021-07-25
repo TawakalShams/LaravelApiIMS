@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class CustomerLogin extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -16,21 +16,30 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    // protected $table = "insuarance";
-    protected $table = "users";
-    protected $primaryKey = 'agentid';
+    protected $table = 'insuarance';
     public $timestamps = false;
+    protected $primaryKey = 'insuaranceid';
     protected $fillable = [
-        'agentid',
+        // customer
         'fullName',
-        'email',
-        'role',
-        'password',
         'gender',
         'dob',
         'address',
-        'branch',
         'phone',
+
+        // vehicles
+        'platenumber',
+        'type',
+        'model',
+        'chassiNumber',
+        'seat',
+        'color',
+        'yearOfManufacture',
+        'value',
+
+        'typeOfInsuarance',
+        'startdate',
+        'enddate',
         'created_by',
     ];
 
@@ -50,7 +59,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'platenumber' => 'datetime',
     ];
 
     public function getJWTIdentifier()
@@ -66,9 +75,8 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'agentid' => $this->agentid,
-            'email' => $this->email,
-            'role' => $this->role,
+            'insuaranceid' => $this->insuaranceid,
+            'platenumber' => $this->platenumber,
             'fullName' => $this->fullName,
         ];
     }

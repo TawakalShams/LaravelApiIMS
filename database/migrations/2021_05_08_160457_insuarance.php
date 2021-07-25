@@ -16,7 +16,7 @@ class Insuarance extends Migration
         Schema::create('insuarance', function (Blueprint $table) {
             //  $table->bigIncrements('insuaranceid');
             $table->integer('insuaranceid', 10);
-             $table->string('platenumber')->unique();
+            $table->string('platenumber')->unique();
 
             // customer
             $table->string('fullName');
@@ -24,6 +24,7 @@ class Insuarance extends Migration
             $table->date('dob');
             $table->string('address');
             $table->string('phone');
+            $table->string('password');
 
             // vehicles
             $table->string('type');
