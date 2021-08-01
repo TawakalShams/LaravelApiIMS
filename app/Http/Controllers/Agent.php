@@ -66,7 +66,7 @@ class Agent extends Controller
                 'address'    => 'required',
                 'branch'     => 'required',
                 'phone'      => 'required',
-                'created_by' => 'required',
+                'create_by' => 'required',
 
             ]);
 
@@ -81,15 +81,16 @@ class Agent extends Controller
                 $agents->email = $request->input('email');
                 $agents->role = $request->input('role');
                 //  $agents->role = $request->input('role');
-                $agents->role = 'Agent';
+                // $agents->role = 'Agent';
                 $agents->address = $request->input('address');
                 $agents->password = bcrypt($request->input('password'));
                 $agents->gender = $request->input('gender');
                 $agents->dob = $request->input('dob');
                 $agents->branch = $request->input('branch');
                 $agents->phone = $request->input('phone');
+                $agents->platenumber = "";
                 // $agents->created_by = $request->input('created_by');
-                $agents->created_by = $request->input('created_by');
+                $agents->create_by = $request->input('create_by');
                 $agents->save();
 
                 return response()->json([
@@ -147,7 +148,7 @@ class Agent extends Controller
             'address'    => 'required',
             'branch'     => 'required',
             'phone'      => 'required',
-            'created_by' => 'required',
+            'create_by' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -170,7 +171,7 @@ class Agent extends Controller
             $agents->dob = $request->input('dob');
             $agents->branch = $request->input('branch');
             $agents->phone = $request->input('phone');
-            $agents->created_by = $request->input('created_by');
+            $agents->create_by = $request->input('create_by');
             $agents->save();
 
             return response()->json([

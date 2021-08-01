@@ -21,6 +21,7 @@ class Agentsresgstration extends Model
 		'address',
 		'branch',
 		'phone',
+		'platenumber',
 		'created_by',
 	];
 }

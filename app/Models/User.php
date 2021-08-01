@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     // protected $table = "insuarance";
-    protected $table = "users";
+    protected $guard  = "users";
     protected $primaryKey = 'agentid';
     public $timestamps = false;
     protected $fillable = [
@@ -28,10 +28,11 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'gender',
         'dob',
+        'platenumber',
         'address',
         'branch',
         'phone',
-        'created_by',
+        'create_by',
     ];
 
     /**
@@ -68,6 +69,7 @@ class User extends Authenticatable implements JWTSubject
         return [
             'agentid' => $this->agentid,
             'email' => $this->email,
+            'platenumber' => $this->platenumber,
             'role' => $this->role,
             'fullName' => $this->fullName,
         ];

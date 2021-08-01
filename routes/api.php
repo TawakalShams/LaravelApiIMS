@@ -11,6 +11,8 @@ use App\Http\Controllers\PayInsuared;
 use App\Http\Controllers\AcidentVerificationController;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\ViewAllUsers;
+use App\Http\Controllers\CarModelController;
+use App\Http\Controllers\AndroidUserCrud;
 // use App\Http\Controllers\ChangePassword;
 
 
@@ -28,8 +30,6 @@ Route::group(['middleware' => 'api'], function ($router) {
 });
 
 Route::resource('/agents', Agent::class);
-// Route::resource('/customerlogin', CustomerLoggin::class);
-// Route::post('customerlogin', [CustomerLoggin::class, 'customerlogin']);
 
 Route::resource('/insuarance', InsuaranceController::class);
 Route::resource('/payment', CustomerPayment::class);
@@ -38,4 +38,6 @@ Route::resource('/accident', AcidentVerificationController::class);
 Route::resource('/changePassword', ChangePassword::class);
 
 Route::resource('/users', ViewAllUsers::class);
+Route::resource('/carModel', CarModelController::class);
+Route::resource('/singleInsuarance', AndroidUserCrud::class);
 // Route::resource('/customerReport', insuranceReportOfCustomer::class);

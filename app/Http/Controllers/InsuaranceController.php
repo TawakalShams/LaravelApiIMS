@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Insuarance; //this is a model
@@ -87,6 +88,7 @@ class InsuaranceController extends Controller
 
                 $insuarance = new Insuarance();
 
+
                 $insuarance->fullName = $request->input('fullName');
                 $insuarance->gender = $request->input('gender');
                 $insuarance->dob = $request->input('dob');
@@ -111,9 +113,35 @@ class InsuaranceController extends Controller
                 $insuarance->create_by = $request->input('create_by');
                 $insuarance->save();
 
+                // INSERT INTO user table
+                $agents = new User();
+                $agents->fullName = $request->input('fullName');
+                $agents->email = "customer";
+                $agents->role = "Customer";
+
+                $agents->platenumber = $request->input('platenumber');
+                $agents->address = $request->input('address');
+                $agents->password = bcrypt($request->input('password'));
+                $agents->gender = $request->input('gender');
+                $agents->dob = $request->input('dob');
+                $agents->branch = "";
+                $agents->phone = $request->input('phone');
+                $agents->create_by = $request->input('create_by');
+                $agents->save();
+
+
+
                 return response()->json([
                     'insuarances' => $insuarance,
                 ], 200);
+
+
+
+
+                // $users = new CustomerLogin();
+
+
+
             }
         }
     }

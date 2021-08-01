@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerLogin;
+use App\Models\User;
 use Illuminate\Http\Request;
+// use User;
 
 class CustomerLoggin extends Controller
 {
@@ -98,7 +100,6 @@ class CustomerLoggin extends Controller
             'color' => $request->color,
             'yearOfManufacture' => $request->yearOfManufacture,
             'value' => $request->value,
-
             'typeOfInsuarance' => $request->typeOfInsuarance,
             'startdate' => $request->startdate,
             'enddate' => $request->enddate,
@@ -107,4 +108,21 @@ class CustomerLoggin extends Controller
 
         return response()->json($user, 201);
     }
+
+    // public function users(Request $request)
+    // {
+    //     $user = User::Create([
+    //         'fullName' => $request->fullName,
+    //         'email' => 'zic@gmail.com',
+    //         'role' => 'customer',
+    //         'password' => bcrypt($request->password),
+    //         'gender' => $request->gender,
+    //         'dob' => $request->dob,
+    //         'address' => $request->address,
+    //         'branch' => 'Miperan',
+    //         'phone' => $request->phone,
+    //         'platenumber' => $request->platenumber,
+    //         'create_by' => $request->create_by,
+    //     ]);
+    // }
 }

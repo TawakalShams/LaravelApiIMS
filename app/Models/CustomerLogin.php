@@ -16,7 +16,7 @@ class CustomerLogin extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $table = 'insuarance';
+    protected $guard = 'insuarance';
     public $timestamps = false;
     protected $primaryKey = 'insuaranceid';
     protected $fillable = [

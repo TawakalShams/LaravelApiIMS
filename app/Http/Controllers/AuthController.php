@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class AuthController extends Controller
 {
     /**
@@ -24,15 +25,24 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
+
+
 
         if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
+
+        //       if (!$token = Auth::guard('users')->attempt($credentials)) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+
+        // return $this->respondWithToken($token);
+
     }
 
     /**
@@ -89,11 +99,27 @@ class AuthController extends Controller
             'gender' => $request->gender,
             'dob' => $request->dob,
             'address' => $request->address,
+            'platenumber' => "",
             'branch'  => $request->branch,
             'phone' => $request->phone,
-            'created_by' => $request->created_by,
+            'create_by' => $request->create_by,
         ]);
 
         return response()->json($user, 201);
     }
+    // public function users(Request $request)
+    // {
+    //     $user = User::Create([
+    //         'fullName' => 'Tawakal Shams Khamis',
+    //         'email' => 'tawakalshamss@gmail.com',
+    //         'role' => 'Admin',
+    //         'password' => bcrypt('12345'),
+    //         'gender' => 'Male',
+    //         'dob' => '1995-10-10',
+    //         'address' => 'Tomondo',
+    //         'branch' => 'Miperan',
+    //         'phone' => '0774071322',
+    //         'create_by' => 'Admin',
+    //     ]);
+    // }
 }
